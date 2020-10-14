@@ -7,6 +7,9 @@ class Player {
         this.died = false;
 
         this.velocity = new Vector2D(0, 0);
+
+        this.image = new Image();
+        this.image.src = './img/bird.png';
     }
 
     die() {
@@ -16,14 +19,15 @@ class Player {
     update() {
         this.velocity.y += GRAVITY;
         this.vector.add(this.velocity);
+        if(this.vector.y >= canvas.height && this.died) this.vector.subtract(this.velocity);
     }
 
     flap() {
+        if(this.died) return;
         this.velocity.y = -10;
     }
 
     render() {
-        ctx.fillStyle = this.died ? 'red' : 'black';
-        ctx.fillRect(this.vector.x, this.vector.y, this.width, this.height);
+        ctx.drawImage(this.image, this.vector.x, this.vector.y, this.width, this.height);
     }
 }

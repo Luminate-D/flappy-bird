@@ -20,6 +20,9 @@ setInterval(() => {
 setInterval(() => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    ctx.fillStyle = '#2ec4f2';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     blocks.forEach(block => {
         block.update();
         block.render();
@@ -29,6 +32,16 @@ setInterval(() => {
 
     player.update();
     player.render();
+
+    if(player.died) {
+        ctx.fillStyle = 'red';
+        ctx.font = 'bold 24px Verdana';
+        return ctx.fillText('Game over!', canvas.width - 220, canvas.height / 2);
+    }
+
+    ctx.fillStyle = 'red';
+    ctx.font = 'bold 24px Verdana';
+    ctx.fillText(player.score, canvas.width / 2, 50);
 }, 1000 / 60);
 
 document.addEventListener('keydown', async (event) => {
